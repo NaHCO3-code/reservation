@@ -3,7 +3,6 @@ export class LoadingManager {
   private loadStartTime: number = 0;
   state: 'loading' | 'loaded' = 'loading';
   private constructor() {
-
   }
 
   private static instance: LoadingManager;
