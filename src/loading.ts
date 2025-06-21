@@ -1,8 +1,11 @@
 export class LoadingManager {
-  private minLoadTime: number = 3000;
+  private minLoadTime: number = 0;
   private loadStartTime: number = 0;
   state: 'loading' | 'loaded' = 'loading';
+  private loadingElement: HTMLElement;
   private constructor() {
+    this.loadingElement = document.getElementById('loading')!;
+    this.loadingElement.remove();
   }
 
   private static instance: LoadingManager;
@@ -27,15 +30,19 @@ export class LoadingManager {
     ]).then(() => {
       this.loaded();
     })
-    const loadingEl = document.getElementById('loading')!;
-    loadingEl.attributeStyleMap.set('opacity', '1');
+    document.body.appendChild(this.loadingElement);
+    this.loadingElement.attributeStyleMap.set('opacity', '1');
     this.createAnimation();
   }
 
   loaded() {
     this.state = 'loaded';
-    const loadingEl = document.getElementById('loading')!;
-    loadingEl.attributeStyleMap.set('opacity', '0');
+    this.loadingElement.attributeStyleMap.set('opacity', '0');
+    const onTransitionEnd = () => {
+      this.loadingElement.removeEventListener('transitionend', onTransitionEnd);
+      this.loadingElement.remove();
+    }
+    this.loadingElement.addEventListener('transitionend', onTransitionEnd);
   }
 
   createAnimation(){
@@ -47,6 +54,5 @@ export class LoadingManager {
       }
     }
     requestAnimationFrame(animate)
-
   }
 }

@@ -2,8 +2,10 @@
 import './polyfills/attributeStyleMap';
 import { createCloudEffect } from './cloud';
 import { LoadingManager } from './loading';
+import { ScrollManager } from './scroll';
 
 LoadingManager.getInstance().init();
+ScrollManager.getInstance().init();
 
 // 等待DOM加载完成
 document.addEventListener('DOMContentLoaded', () => {
