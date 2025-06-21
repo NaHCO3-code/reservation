@@ -1,3 +1,5 @@
+// 首先导入polyfill以确保兼容性
+import './polyfills/attributeStyleMap';
 import { createCloudEffect } from './cloud';
 import { LoadingManager } from './loading';
 
