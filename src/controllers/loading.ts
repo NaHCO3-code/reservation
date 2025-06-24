@@ -1,5 +1,5 @@
 export class LoadingManager {
-  private minLoadTime: number = 0;
+  private minLoadTime: number = 3000;
   private loadStartTime: number = 0;
   state: 'loading' | 'loaded' = 'loading';
   private loadingElement: HTMLElement;

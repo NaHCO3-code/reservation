@@ -11,7 +11,7 @@
   <body>
     <div id="loading" class="fixed top-0 left-0 z-128 w-screen h-screen bg-gray-800 flex flex-col justify-center items-center" style="transition: opacity 1s ease-in-out;">
       <div class="loading-icon-container pb-5">
-        <embed id="loading-icon" src="/surfish.svg" class="w-32 h-32 loading-icon" />
+        <embed id="loading-icon" src="/surfish.svg" class="w-32 h-32 loading-icon"/>
       </div>
       <p class="text-white font-title text-xl">Loading...</p>
     </div>
@@ -28,32 +28,39 @@
       </div>
       <div
         id="about"
-        class="h-screen flex flex-col p-[3%] relative space-"
+        class="h-screen flex flex-col p-[3%] relative"
       >
         <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
           <p>About</p>
         </div>
-        <pre class="font-sans text-gray-950 text-xl xl:text-2xl 2xl:w-1/2 whitespace-pre-wrap">从小学五年级在编程猫论坛发布第一个 Python 小程序开始，编程，就成了我连接想象与现实的桥梁。虽然不过是些简陋的脚本，但我很高兴论坛上有不少大佬帮助我。
-初一那年，我的创造欲如同脱缰野马。我斩获了第五届泉州市青少年机器人竞赛二等奖；创造了一门语言并为此写了一个输入法（然而不久后我便对此失去兴趣，连自己都看不懂这门语言写出的文字了。当然这是后话）；开始学习JavaScript，搭建了自己的第一个网站。这一年，我还开始了自己的信息竞赛生涯，此后成为“万年老二”：在 2022 年的 CSP-J、2023年和2024年的 CSP-S 和 NOIP 比赛中获得了五个二等奖。
-在我学习过的所有技能中，Web 开发承载了我最多的想法，也成为了我最熟悉的技能。然而，当自诩全栈开发者的我，开发中屡屡碰壁时，中考的现实压力让我不得不向现实妥协：暂停开发半年，在题海与代码间重新寻找平衡点。
-高中开始我重拾热情，学习了C51单片机和嵌入式开发；同时花了一个月速成并帮助我父亲完成了一台食品机的触摸屏和PLC程序。我开始注重代码的质量和可维护性，而不是仅仅追求功能的实现。我开始学习设计模式，学习如何写出更加优雅的代码。我开始意识到，编程不仅仅是一门技术，更是一门艺术。
-秉持这个理念，我开始写一些轻量级的小玩具，尽管功能简单，但我仍然对自己代码的严格要求。重构过数次的星体模拟器、读后续写助手，基于视错觉设计的谜题（nahco3-code.github.io/puzzle2d5/）和语音克隆工具，都在践行着新的信条：优雅的代码不应是功能的堆砌，而该像精密钟表般环环相扣。
-在神奇代码岛开发小游戏的经历尤为难忘。平台功能和工具生态的缺失让我的造轮子之魂不断燃烧，贡献了不少基础的工具，也因此一个简单的小游戏开发了半年之久。当简单游戏演变成底层框架的漫长搭建，那些看似冗余的轮子，何尝不是对抗现实制约的思维沙盘？
-六年创造路，五次竞赛折戟，无数个重构版本。与其说这是段追求完美的旅程，不如说是学会与不完美和解的成长史。那些坚持重构的执念，那些妥协放下的瞬间……它们告诉我，真正的热爱，是看清技术的真相后，仍然继续前行。悟以往之不谏，知来者之可追。我知道，这条路还很长，但我愿意继续走下去，因为这是我所热爱的事情。</pre>
+        <pre class="font-sans text-gray-200 text-xl xl:text-2xl xl:w-4/5 2xl:w-2/3 whitespace-pre-wrap mt-5">欢迎光临，这里是 Surfish 的互联网自留地！
+
+我是 Surfish，你也可以叫我小苏打，目前是一名高中生。热衷于创造一些 「不一样」 的东西。
+
+我曾经尝试过嵌入式开发（然而并没有真的做出什么东西 xwx），目前正在精进 Web 开发技术，并且正在学习 Rust。
+
+如果你对我的爱好同样十分感兴趣，或者有任何 idea 想要与我分享，欢迎<a class="text-amber-500 underline ml-1 mr-1" href="mailto:surfish.fun@outlook.com">联系我</a>！
+        </pre>
       </div>
       <div
         id="qa"
-        class="h-screen flex flex-col font-title p-[3%] relative qa-card"
+        class="h-screen flex flex-col p-[3%] relative"
       >
-        <div class="relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
-          <p>Q&amp;A</p>
+        <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
+          <p>Q&A</p>
         </div>
-        <div class="qa-item font-sans text-xl xl:text-2xl 2xl:w-1/2 whitespace-pre-wrap">
-          <div class="qa-bubble qa-q-bubble">为什么你的头像这么像清华源的icon？</div>
+        <pre class="font-sans text-gray-200 text-xl xl:text-2xl xl:w-4/5 2xl:w-2/3 whitespace-pre-wrap mt-5">&gt; 为什么你的头像这么像清华源的icon？
+&lt; 不到啊，数学学考时太无聊随手画出来的，没想到会撞车
+        </pre>
+      </div>
+      <div
+        id="friends"
+        class="h-screen flex flex-col p-[3%] relative"
+      >
+        <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
+          <p>Friends</p>
         </div>
-        <div class="qa-item font-sans text-xl xl:text-2xl 2xl:w-1/2 whitespace-pre-wrap">
-          <div class="qa-bubble qa-a-bubble">不到啊，数学学考时太无聊随手画出来的，没想到会撞车</div>
-        </div>
+        <div id="wall" class="m-[10%] h-full"></div>
       </div>
     </div>
     <!-- <div id="loading" class="h-screen bg-gray-800"></div> -->

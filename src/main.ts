@@ -1,21 +1,10 @@
 // 首先导入polyfill以确保兼容性
 import './polyfills/attributeStyleMap';
-import { createCloudEffect } from './cloud';
-import { LoadingManager } from './loading';
-import { ScrollManager } from './scroll';
+import { LoadingManager } from './controllers/loading';
+// import { ScrollManager } from './scroll';
+import { CloudManager } from './controllers/cloud';
 
 LoadingManager.getInstance().init();
-ScrollManager.getInstance().init();
+CloudManager.getInstance().init();
+// ScrollManager.getInstance().init();
 
-// 等待DOM加载完成
-document.addEventListener('DOMContentLoaded', () => {
-  const cloudEffect = createCloudEffect('title');
-
-  // 开始渲染循环
-  function animate() {
-    cloudEffect.render();
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-});

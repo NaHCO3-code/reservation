@@ -12,111 +12,104 @@ const vertexShaderSource = `
 
 // 片段着色器源码 - 创建逼真的云效果
 const fragmentShaderSource = `
-  precision mediump float;
+precision mediump float;
 
-  varying vec2 v_texCoord;
-  uniform float u_time;
-  uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
 
-  // 噪声函数
-  float random(vec2 st) {
-    return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+// 噪声函数
+float random(vec2 st) {
+  return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+}
+
+// 2D噪声
+float noise(vec2 st) {
+  vec2 i = floor(st);
+  vec2 f = fract(st);
+
+  float a = random(i);
+  float b = random(i + vec2(1.0, 0.0));
+  float c = random(i + vec2(0.0, 1.0));
+  float d = random(i + vec2(1.0, 1.0));
+
+  vec2 u = f * f * (3.0 - 2.0 * f);
+
+  return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+float fbm(vec2 st) {
+  float value = 0.0;
+  float amplitude = 0.5;
+  float frequency = 1.0;
+
+  for (int i = 0; i < 6; i++) {
+    value += amplitude * noise(st * frequency);
+    frequency *= 2.0;
+    amplitude *= 0.5;
+  }
+  return value;
+}
+
+void main() {
+  vec2 st = v_texCoord;
+
+  // 计算宽高比并修正坐标，防止云被拉伸
+  float aspectRatio = u_resolution.x / u_resolution.y;
+  vec2 pos = st * 2.5;
+
+  // 根据宽高比调整坐标，保持云的形状不变
+  if (aspectRatio > 1.0) {
+    // 宽屏：缩放x坐标
+    pos.x *= aspectRatio;
+  } else {
+    // 高屏：缩放y坐标
+    pos.y /= aspectRatio;
   }
 
-  // 2D噪声
-  float noise(vec2 st) {
-    vec2 i = floor(st);
-    vec2 f = fract(st);
+  // 添加时间动画，让云缓慢移动
+  float time = u_time * 2.0;
 
-    float a = random(i);
-    float b = random(i + vec2(1.0, 0.0));
-    float c = random(i + vec2(0.0, 1.0));
-    float d = random(i + vec2(1.0, 1.0));
+  // 生成云的基础形状
+  float cloud1 = fbm(pos + vec2(time * 0.1, time * 0.05));
+  float cloud2 = fbm(pos * 1.5 + vec2(time * 0.02, -time * 0.07));
+  float cloud3 = fbm(pos * 2.5 + vec2(-time * 0.18, time * 0.1));
 
-    vec2 u = f * f * (3.0 - 2.0 * f);
+  // 分别处理不同层的云以实现不同效果
+  float lowClouds = cloud1 * 0.6 + cloud2 * 0.3;  // 低层云
+  float highClouds = cloud3 * 0.1;                 // 高层云
 
-    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
-  }
+  // 对低层云使用较软的边缘，对高层云使用更锐利的边缘
+  lowClouds = smoothstep(0.4, 0.7, lowClouds);     // 低层云边缘较软
+  highClouds = smoothstep(0.6, 0.601, highClouds);  // 高层云边缘锐利
 
-  // 分形布朗运动 - 创建云的层次感
-  float fbm(vec2 st) {
-    float value = 0.0;
-    float amplitude = 0.5;
-    float frequency = 1.0;
+  // 晴天的天空颜色渐变
+  vec4 skyColor = mix(
+    vec4(0.6, 0.85, 1.0, 1.0),   // 地平线浅蓝色
+    vec4(0.28, 0.49, 0.81, 1.0),   // 天顶深蓝色
+    pow(st.y, 0.8)
+  );
 
-    for (int i = 0; i < 6; i++) {
-      value += amplitude * noise(st * frequency);
-      frequency *= 2.0;
-      amplitude *= 0.5;
-    }
-    return value;
-  }
+  // 低层云的颜色更深
+  vec4 lowCloudColor = mix(
+    vec4(1.0, 1.0, 1.0, 1.0),      // 亮部白色
+    vec4(0.58, 0.58, 0.58, 1.0),     // 更深的阴影部分
+    lowClouds * 0.6
+  );
 
-  void main() {
-    vec2 st = v_texCoord;
+  // 高层云的颜色更亮
+  vec4 highCloudColor = mix(
+    vec4(1.0, 1.0, 1.0, 1.0),      // 亮部白色
+    vec4(0.9, 0.95, 0.98, 1.0),    // 轻微阴影
+    highClouds * 0.3
+  );
 
-    // 计算宽高比并修正坐标，防止云被拉伸
-    float aspectRatio = u_resolution.x / u_resolution.y;
-    vec2 pos = st * 2.5;
+  // 先混合天空和低层云，再叠加高层云
+  vec4 finalColor = mix(skyColor, lowCloudColor, lowClouds * 0.6);
+  finalColor = mix(finalColor, highCloudColor, highClouds * 0.4);
 
-    // 根据宽高比调整坐标，保持云的形状不变
-    if (aspectRatio > 1.0) {
-      // 宽屏：缩放x坐标
-      pos.x *= aspectRatio;
-    } else {
-      // 高屏：缩放y坐标
-      pos.y /= aspectRatio;
-    }
-
-    // 添加时间动画，让云缓慢移动
-    float time = u_time * 0.3;
-    pos.x += time * 0.15;
-    pos.y += time * 0.08;
-
-    // 生成云的基础形状 - 多层噪声
-    float cloud1 = fbm(pos + vec2(time * 0.1, time * 0.05));
-    float cloud2 = fbm(pos * 1.5 + vec2(time * 0.02, -time * 0.07));
-    float cloud3 = fbm(pos * 2.5 + vec2(-time * 0.18, time * 0.1));
-
-    // 分别处理不同层的云以实现不同效果
-    float lowClouds = cloud1 * 0.6 + cloud2 * 0.3;  // 低层云
-    float highClouds = cloud3 * 0.1;                 // 高层云
-
-    // 添加更多细节层，增强动画效果 - 降低幅度以减少云密度
-    lowClouds += 0.2 * fbm(pos * 3.0 + vec2(time * 0.2, time * 0.15));
-    highClouds += 0.1 * fbm(pos * 6.0 + vec2(time * 0.25, -time * 0.2));
-
-    // 对低层云使用较软的边缘，对高层云使用更锐利的边缘
-    lowClouds = smoothstep(0.4, 0.7, lowClouds);     // 低层云边缘较软
-    highClouds = smoothstep(0.6, 0.65, highClouds);  // 高层云边缘锐利
-
-    // 晴天的天空颜色渐变 - 更自然的蓝色
-    vec4 skyColor = mix(
-      vec4(0.6, 0.85, 1.0, 1.0),   // 地平线浅蓝色
-      vec4(0.2, 0.6, 0.95, 1.0),   // 天顶深蓝色
-      pow(st.y, 0.8)
-    );
-
-    // 低层云的颜色 - 更深的阴影效果
-    vec4 lowCloudColor = mix(
-      vec4(1.0, 1.0, 1.0, 1.0),      // 亮部白色
-      vec4(0.7, 0.8, 0.85, 1.0),     // 更深的阴影部分
-      lowClouds * 0.6
-    );
-
-    // 高层云的颜色 - 保持较亮
-    vec4 highCloudColor = mix(
-      vec4(1.0, 1.0, 1.0, 1.0),      // 亮部白色
-      vec4(0.9, 0.95, 0.98, 1.0),    // 轻微阴影
-      highClouds * 0.3
-    );
-
-    // 先混合天空和低层云，再叠加高层云
-    vec4 finalColor = mix(skyColor, lowCloudColor, lowClouds * 0.6);
-    finalColor = mix(finalColor, highCloudColor, highClouds * 0.4);
-
-    gl_FragColor = finalColor;
-  }
+  gl_FragColor = finalColor;
+}
 `;
 
 // 创建着色器
@@ -154,7 +147,6 @@ function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fra
   return program;
 }
 
-// 云效果类
 export class CloudEffect {
   private gl: WebGLRenderingContext;
   private program: WebGLProgram | null = null;
@@ -258,43 +250,4 @@ export class CloudEffect {
     this.gl.canvas.width = width;
     this.gl.canvas.height = height;
   }
-}
-
-// 便捷函数：创建云效果
-export function createCloudEffect(containerId: string): CloudEffect {
-  const container = document.getElementById(containerId);
-  if (!container) {
-    throw new Error(`找不到容器: ${containerId}`);
-  }
-
-  // 创建canvas元素
-  const canvas = document.createElement('canvas');
-  canvas.style.position = 'absolute';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.width = '100%';
-  canvas.style.height = '100%';
-  canvas.style.pointerEvents = 'none';
-
-  // 设置canvas尺寸
-  const rect = container.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
-
-  // 添加到容器
-  container.style.position = 'relative';
-  container.appendChild(canvas);
-
-  // 创建云效果
-  const cloudEffect = new CloudEffect(canvas);
-
-  // 处理窗口大小变化
-  const handleResize = () => {
-    const rect = container.getBoundingClientRect();
-    cloudEffect.resize(rect.width, rect.height);
-  };
-
-  window.addEventListener('resize', handleResize);
-
-  return cloudEffect;
 }

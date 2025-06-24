@@ -1,102 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-    --color-main: #336699;
-    --font-title: 'orbitron', 'sans-serif';
+  --color-main: #336699;
+  --font-title: 'orbitron', 'sans-serif';
 }
 
 @font-face {
   font-family: 'orbitron';
   src: url('/fonts/Orbitron-Bold.ttf');
-}
-
-/* Q&A 样式美化（无背景，仅淡边框/模糊，对话气泡） */
-.qa-card {
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 2rem 0 1.5rem 0;
-  margin: 0 auto;
-  max-width: 900px;
-}
-.qa-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 1.2rem;
-  margin: 0.7rem 0;
-}
-.qa-bubble {
-  max-width: 60%;
-  padding: 1rem 1.3rem;
-  border-radius: 1.2em;
-  border: 1.5px solid #ffe0a3;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  font-size: 1.1rem;
-  line-height: 1.7;
-  background: rgba(255,255,255,0.25);
-  transition: box-shadow 0.2s;
-}
-.qa-q {
-  color: #f59e42;
-  font-weight: bold;
-  margin-right: 0.5em;
-  font-size: 1.1em;
-}
-.qa-a {
-  color: #64748b;
-  font-weight: bold;
-  margin-left: 0.5em;
-  font-size: 1.1em;
-}
-.qa-bubble.qa-q-bubble {
-  border-top-left-radius: 0.3em;
-  border-bottom-right-radius: 1.5em;
-  align-self: flex-start;
-  margin-left: 0;
-}
-.qa-bubble.qa-a-bubble {
-  border-top-right-radius: 0.3em;
-  border-bottom-left-radius: 1.5em;
-  align-self: flex-end;
-  margin-left: auto;
-  background: rgba(245,245,255,0.18);
-}
-
-/* Q&A 样式美化（Q/A用before/after实现） */
-.qa-q-bubble::before {
-  content: 'Q';
-  color: #f59e42;
-  font-weight: bold;
-  margin-right: 0.7em;
-  font-size: 1.1em;
-  letter-spacing: 0.05em;
-}
-.qa-a-bubble::after {
-  content: 'A';
-  color: #f59e42; /* 更显眼的主色 */
-  font-weight: bold;
-  margin-left: 0.7em;
-  font-size: 1.1em;
-  letter-spacing: 0.05em;
-}
-.qa-a-bubble::before {
-  content: none;
-}
-.qa-q, .qa-a {
-  display: none;
-}
-
-@media (max-width: 640px) {
-  .qa-card {
-    padding: 1rem 0 0.5rem 0;
-  }
-  .qa-item {
-    gap: 0.5rem;
-  }
-  .qa-bubble {
-    padding: 0.7rem 0.8rem;
-    font-size: 0.98rem;
-  }
 }
