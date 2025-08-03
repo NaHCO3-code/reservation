@@ -1,19 +1,14 @@
-export class LoadingManager {
-  private minLoadTime: number = 3000;
+import { Singleton } from "../utils/singleton";
+
+export class LoadingManager extends Singleton<LoadingManager>() {
+  private minLoadTime: number = 0;
   private loadStartTime: number = 0;
   state: 'loading' | 'loaded' = 'loading';
   private loadingElement: HTMLElement;
-  private constructor() {
+  protected constructor() {
+    super();
     this.loadingElement = document.getElementById('loading')!;
     this.loadingElement.remove();
-  }
-
-  private static instance: LoadingManager;
-  static getInstance(): LoadingManager {
-    if (!this.instance) {
-      this.instance = new LoadingManager();
-    }
-    return this.instance;
   }
 
   init(){

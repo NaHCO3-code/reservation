@@ -2,10 +2,23 @@
 
 @theme {
   --color-main: #336699;
+  --color-main-900: #2b4a6b;
   --font-title: 'orbitron', 'sans-serif';
+  --section-clip-size: 40px;
 }
 
 @font-face {
   font-family: 'orbitron';
   src: url('/fonts/Orbitron-Bold.ttf');
+}
+
+@utility section-clip {
+  clip-path: polygon(
+    0 0,
+    calc(max(180px, 20%)) 0,
+    calc(max(180px, 20%) + var(--section-clip-size)) var(--section-clip-size),
+    100% var(--section-clip-size),
+    100% 100%,
+    0 100%
+  );
 }

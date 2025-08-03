@@ -1,3 +1,4 @@
+import { Singleton } from "../utils/singleton";
 import { CloudEffect } from "../view/cloudEffect";
 
 
@@ -23,7 +24,6 @@ function createCloudEffect(containerId: string): CloudEffect {
   canvas.height = rect.height;
 
   // 添加到容器
-  container.style.position = 'relative';
   container.appendChild(canvas);
 
   // 创建云效果
@@ -40,16 +40,7 @@ function createCloudEffect(containerId: string): CloudEffect {
   return cloudEffect;
 }
 
-export class CloudManager {
-  private static instance: CloudManager;
-  static getInstance(): CloudManager {
-    if (!CloudManager.instance) {
-      CloudManager.instance = new CloudManager();
-    }
-    return CloudManager.instance;
-  }
-
-  private constructor() {};
+export class CloudManager extends Singleton<CloudManager>() {
   
   init(){
     document.addEventListener('DOMContentLoaded', () => {

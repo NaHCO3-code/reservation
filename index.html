@@ -15,10 +15,10 @@
       </div>
       <p class="text-white font-title text-xl">Loading...</p>
     </div>
-    <div id="app" class="bg-main">
+    <div id="app" class="[&_.section]:sticky [&_.section]:top-0 [&_.section]:bg-main">
       <div
         id="title"
-        class="h-screen flex flex-col justify-center font-title p-[7%] relative"
+        class="section h-screen bg-main flex flex-col justify-center font-title p-[7%]"
       >
         <div class="mix-blend-difference relative text-shadow-lg z-1 text-main text-3xl sm:text-5xl xl:text-6xl">
           <p>Surfish's</p>
@@ -26,44 +26,17 @@
           <p>Reservation</p>
         </div>
       </div>
-      <div
-        id="about"
-        class="h-screen flex flex-col p-[3%] relative"
-      >
-        <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
-          <p>About</p>
+      <div id="words-outer" class="h-[600vh]">
+        <div
+          id="words"
+          class="section h-screen bg-orange-200! flex flex-col justify-center p-[7%]"
+        >
+          <div class="relative text-black text-3xl sm:text-5xl xl:text-6xl">
+            <p>我将要成为何者？</p>
+          </div>
         </div>
-        <pre class="font-sans text-gray-200 text-xl xl:text-2xl xl:w-4/5 2xl:w-2/3 whitespace-pre-wrap mt-5">欢迎光临，这里是 Surfish 的互联网自留地！
-
-我是 Surfish，你也可以叫我小苏打，目前是一名高中生。热衷于创造一些 「不一样」 的东西。
-
-我曾经尝试过嵌入式开发（然而并没有真的做出什么东西 xwx），目前正在精进 Web 开发技术，并且正在学习 Rust。
-
-如果你对我的爱好同样十分感兴趣，或者有任何 idea 想要与我分享，欢迎<a class="text-amber-500 underline ml-1 mr-1" href="mailto:surfish.fun@outlook.com">联系我</a>！
-        </pre>
-      </div>
-      <div
-        id="qa"
-        class="h-screen flex flex-col p-[3%] relative"
-      >
-        <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
-          <p>Q&A</p>
-        </div>
-        <pre class="font-sans text-gray-200 text-xl xl:text-2xl xl:w-4/5 2xl:w-2/3 whitespace-pre-wrap mt-5">&gt; 为什么你的头像这么像清华源的icon？
-&lt; 不到啊，数学学考时太无聊随手画出来的，没想到会撞车
-        </pre>
-      </div>
-      <div
-        id="friends"
-        class="h-screen flex flex-col p-[3%] relative"
-      >
-        <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
-          <p>Friends</p>
-        </div>
-        <div id="wall" class="m-[10%] h-full"></div>
       </div>
     </div>
-    <!-- <div id="loading" class="h-screen bg-gray-800"></div> -->
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
