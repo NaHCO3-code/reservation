@@ -85,22 +85,22 @@ void main() {
 
   // 晴天的天空颜色渐变
   vec4 skyColor = mix(
-    vec4(0.6, 0.85, 1.0, 1.0),   // 地平线浅蓝色
-    vec4(0.28, 0.49, 0.81, 1.0),   // 天顶深蓝色
+    vec4(0.6, 0.85, 1.0, 1.0),
+    vec4(0.28, 0.49, 0.81, 1.0),
     pow(st.y, 0.8)
   );
 
   // 低层云的颜色更深
   vec4 lowCloudColor = mix(
-    vec4(1.0, 1.0, 1.0, 1.0),      // 亮部白色
-    vec4(0.58, 0.58, 0.58, 1.0),     // 更深的阴影部分
+    vec4(1.0, 1.0, 1.0, 1.0),
+    vec4(0.9, 0.9, 0.9, 1.0),
     lowClouds * 0.6
   );
 
   // 高层云的颜色更亮
   vec4 highCloudColor = mix(
-    vec4(1.0, 1.0, 1.0, 1.0),      // 亮部白色
-    vec4(0.9, 0.95, 0.98, 1.0),    // 轻微阴影
+    vec4(1.0, 1.0, 1.0, 1.0),
+    vec4(0.9, 0.95, 0.98, 1.0),
     highClouds * 0.3
   );
 
@@ -113,7 +113,11 @@ void main() {
 `;
 
 // 创建着色器
-function createShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null {
+function createShader(
+  gl: WebGLRenderingContext,
+  type: number,
+  source: string
+): WebGLShader | null {
   const shader = gl.createShader(type);
   if (!shader) return null;
 
@@ -121,7 +125,7 @@ function createShader(gl: WebGLRenderingContext, type: number, source: string): 
   gl.compileShader(shader);
 
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    console.error('着色器编译错误:', gl.getShaderInfoLog(shader));
+    console.error("着色器编译错误:", gl.getShaderInfoLog(shader));
     gl.deleteShader(shader);
     return null;
   }
@@ -130,7 +134,11 @@ function createShader(gl: WebGLRenderingContext, type: number, source: string): 
 }
 
 // 创建着色器程序
-function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fragmentShader: WebGLShader): WebGLProgram | null {
+function createProgram(
+  gl: WebGLRenderingContext,
+  vertexShader: WebGLShader,
+  fragmentShader: WebGLShader
+): WebGLProgram | null {
   const program = gl.createProgram();
   if (!program) return null;
 
@@ -139,7 +147,7 @@ function createProgram(gl: WebGLRenderingContext, vertexShader: WebGLShader, fra
   gl.linkProgram(program);
 
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    console.error('程序链接错误:', gl.getProgramInfoLog(program));
+    console.error("程序链接错误:", gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return null;
   }
@@ -155,9 +163,9 @@ export class CloudEffect {
   private startTime: number;
 
   constructor(canvas: HTMLCanvasElement) {
-    const gl = canvas.getContext('webgl');
+    const gl = canvas.getContext("webgl");
     if (!gl) {
-      throw new Error('WebGL不支持');
+      throw new Error("WebGL不支持");
     }
     this.gl = gl;
     this.startTime = Date.now();
@@ -169,32 +177,26 @@ export class CloudEffect {
 
     // 创建着色器
     const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-    const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+    const fragmentShader = createShader(
+      gl,
+      gl.FRAGMENT_SHADER,
+      fragmentShaderSource
+    );
 
     if (!vertexShader || !fragmentShader) {
-      throw new Error('着色器创建失败');
+      throw new Error("着色器创建失败");
     }
 
     // 创建程序
     this.program = createProgram(gl, vertexShader, fragmentShader);
     if (!this.program) {
-      throw new Error('程序创建失败');
+      throw new Error("程序创建失败");
     }
 
     // 创建全屏四边形的顶点
-    const positions = new Float32Array([
-      -1, -1,
-       1, -1,
-      -1,  1,
-       1,  1,
-    ]);
+    const positions = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
 
-    const texCoords = new Float32Array([
-      0, 0,
-      1, 0,
-      0, 1,
-      1, 1,
-    ]);
+    const texCoords = new Float32Array([0, 0, 1, 0, 0, 1, 1, 1]);
 
     // 创建缓冲区
     this.positionBuffer = gl.createBuffer();
@@ -221,16 +223,19 @@ export class CloudEffect {
     gl.useProgram(this.program);
 
     // 设置uniform变量
-    const timeLocation = gl.getUniformLocation(this.program, 'u_time');
-    const resolutionLocation = gl.getUniformLocation(this.program, 'u_resolution');
+    const timeLocation = gl.getUniformLocation(this.program, "u_time");
+    const resolutionLocation = gl.getUniformLocation(
+      this.program,
+      "u_resolution"
+    );
 
     const currentTime = (Date.now() - this.startTime) / 1000.0;
     gl.uniform1f(timeLocation, currentTime);
     gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
 
     // 设置顶点属性
-    const positionLocation = gl.getAttribLocation(this.program, 'a_position');
-    const texCoordLocation = gl.getAttribLocation(this.program, 'a_texCoord');
+    const positionLocation = gl.getAttribLocation(this.program, "a_position");
+    const texCoordLocation = gl.getAttribLocation(this.program, "a_texCoord");
 
     // 绑定位置缓冲区
     gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);

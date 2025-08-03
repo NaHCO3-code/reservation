@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-main: #336699;
-  --color-main-900: #2b4a6b;
+  --color-main: #075985;
+  --color-main-700: #0369a1;
+  --color-main-900: #0c4a6e;
+  --color-main-950: #082f49;
   --font-title: 'orbitron', 'sans-serif';
   --section-clip-size: 40px;
 }
@@ -21,4 +23,21 @@
     100% 100%,
     0 100%
   );
+}
+
+.menu-item {
+  position: relative;
+}
+.menu-item::after { 
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0;
+  background: white;
+  transition: width 0.3s;  
+}
+.menu-item:hover::after {
+  width: 100%;
 }

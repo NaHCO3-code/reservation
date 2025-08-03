@@ -1,69 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/reservation/surfish.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Surfish's reservation</title>
-    <script type="module" crossorigin src="/reservation/assets/index-jPkto0s2.js"></script>
-    <link rel="stylesheet" crossorigin href="/reservation/assets/index-Cb1w5yI-.css">
-  </head>
+<!doctype html>
+<html lang="en" class="scroll-smooth">
 
-  <body>
-    <div id="loading" class="fixed top-0 left-0 z-128 w-screen h-screen bg-gray-800 flex flex-col justify-center items-center" style="transition: opacity 1s ease-in-out;">
-      <div class="loading-icon-container pb-5">
-        <embed id="loading-icon" src="/reservation/surfish.svg" class="w-32 h-32 loading-icon"/>
-      </div>
-      <p class="text-white font-title text-xl">Loading...</p>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/reservation/surfish.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surfish's reservation</title>
+  <script type="module" crossorigin src="/reservation/assets/index-DMgxYrqs.js"></script>
+  <link rel="stylesheet" crossorigin href="/reservation/assets/index-DPkXtoVJ.css">
+</head>
+
+<body>
+  <div id="loading"
+    class="fixed top-0 left-0 z-128 w-screen h-screen bg-gray-800 flex flex-col justify-center items-center"
+    style="transition: opacity 1s ease-in-out">
+    <div class="loading-icon-container pb-5">
+      <embed id="loading-icon" src="/reservation/surfish.svg" class="w-32 h-32 loading-icon" />
     </div>
-    <div id="app" class="bg-main">
-      <div
-        id="title"
-        class="h-screen flex flex-col justify-center font-title p-[7%] relative"
-      >
-        <div class="mix-blend-difference relative text-shadow-lg z-1 text-main text-3xl sm:text-5xl xl:text-6xl">
-          <p>Surfish's</p>
-          <p>Internet</p>
-          <p>Reservation</p>
-        </div>
-      </div>
-      <div
-        id="about"
-        class="h-screen flex flex-col p-[3%] relative"
-      >
-        <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
-          <p>About</p>
-        </div>
-        <pre class="font-sans text-gray-200 text-xl xl:text-2xl xl:w-4/5 2xl:w-2/3 whitespace-pre-wrap mt-5">欢迎光临，这里是 Surfish 的互联网自留地！
-
-我是 Surfish，你也可以叫我小苏打，目前是一名高中生。热衷于创造一些 「不一样」 的东西。
-
-我曾经尝试过嵌入式开发（然而并没有真的做出什么东西 xwx），目前正在精进 Web 开发技术，并且正在学习 Rust。
-
-如果你对我的爱好同样十分感兴趣，或者有任何 idea 想要与我分享，欢迎<a class="text-amber-500 underline ml-1 mr-1" href="mailto:surfish.fun@outlook.com">联系我</a>！
-        </pre>
-      </div>
-      <div
-        id="qa"
-        class="h-screen flex flex-col p-[3%] relative"
-      >
-        <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
-          <p>Q&A</p>
-        </div>
-        <pre class="font-sans text-gray-200 text-xl xl:text-2xl xl:w-4/5 2xl:w-2/3 whitespace-pre-wrap mt-5">&gt; 为什么你的头像这么像清华源的icon？
-&lt; 不到啊，数学学考时太无聊随手画出来的，没想到会撞车
-        </pre>
-      </div>
-      <div
-        id="friends"
-        class="h-screen flex flex-col p-[3%] relative"
-      >
-        <div class="font-title relative text-shadow-lg z-1 text-amber-500 text-3xl sm:text-5xl xl:text-6xl">
-          <p>Friends</p>
-        </div>
-        <div id="wall" class="m-[10%] h-full"></div>
+    <p class="text-white font-title text-xl">Loading...</p>
+  </div>
+  <div id="app" class="[&_.section]:sticky [&_.section]:top-0">
+    <div id="title-anchor"></div>
+    <div id="title" class="section h-screen bg-main flex flex-col justify-center font-title p-[7%]">
+      <div class="mix-blend-overlay relative text-shadow-lg z-1 text-white text-3xl sm:text-5xl xl:text-6xl">
+        <p>Surfish's</p>
+        <p>Internet</p>
+        <a id="easteregg" class="menu-item">Reservation</a>
       </div>
     </div>
-    <!-- <div id="loading" class="h-screen bg-gray-800"></div> -->
-  </body>
+    <div id="words-outer" class="h-[500vh] section hidden">
+      <div id="words" class="section h-screen bg-orange-200 flex flex-col justify-center p-[7%]">
+        <div class="relative text-black text-3xl sm:text-5xl xl:text-6xl">
+          <p>我将要成为何者？</p>
+        </div>
+      </div>
+    </div>
+    <div id="header"
+      class="h-20 sticky top-5 z-64 bg-main text-white flex items-center m-5 p-5 gap-10 rounded-xl outline-main-700 outline-4 shadow-xl">
+      <a class="font-title text-2xl" href="#title-anchor">Reservation</a>
+      <div class="hidden md:block h-full border-2"></div>
+      <div class="hidden md:flex items-center gap-5 font-title text-xl ">
+        <a class="menu-item" href="#about-anchor">About</a>
+        <a class="menu-item" href="#articles-anchor">Articles</a>
+        <a class="menu-item" href="#friends-anchor">Friends</a>
+        <a class="menu-item" href="#projects-anchor">Projects</a>
+      </div>
+    </div>
+    <div id="about-anchor"></div>
+    <div id="about" class="h-[100vh] section bg-main-900 p-10 pt-30 lg:p-20 lg:pt-40 text-white">
+      <p class="text-3xl lg:text-5xl">关于我</p>
+      <pre
+        class="rounded-lg py-10 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed whitespace-pre-wrap break-words w-full max-w-3xl text-left"
+        style="box-sizing: border-box;">
+我是那个从小学开始在编程猫敲出第一个 Python 脚本的“万年老二”——五年信息竞赛五次二等奖，却从未停止对代码的执着。目前高三在读。
+
+中考时，我曾在题海中暂停半年，学会与现实和解；高中后重拾键盘，不再只求“能跑”，而是追求每一行代码的优雅：星体模拟器反复重构，视错觉谜题精心雕琢，只因深信编程是环环相扣的艺术，而非功能的堆砌。 
+
+六年求索，妥协是成长的阶梯，不将就才是初心的底色。真正的热爱，是看清技术的真相后，依然从容前行。愿以沉静之心，在代码的世界里继续上下求索。   
+      </pre>
+    </div>
+    <div id="articles-anchor"></div>
+    <div id="articles"
+      class="h-[100vh] section bg-main-900 p-10 pt-30 lg:p-20 lg:pt-40 text-white shadow-[0_-20px_25px_-5px_rgba(0,0,0,0.3)]">
+      <p class="text-3xl lg:text-5xl">文章</p>
+      <div class="my-10 space-y-5">
+        <div
+          class="w-full md:w-3/4 lg:w-1/2 h-20 outline-main-700 outline-4 rounded-2xl flex items-center p-10 transition-all hover:shadow-xl">
+          <p class="text-2xl">AdventureX 2025 碎碎念</p>
+        </div>
+      </div>
+    </div>
+    <div id="friends-anchor"></div>
+    <div id="friends"
+      class="h-[100vh] section bg-main-900 p-10 pt-30 lg:p-20 lg:pt-40 text-white shadow-[0_-20px_25px_-5px_rgba(0,0,0,0.3)]">
+      <p class="text-3xl lg:text-5xl">朋友们</p>
+      <div class="w-full h-full flex items-center justify-center">
+        <div id="friends-board"></div>
+      </div>
+    </div>
+    <div id="projects-anchor"></div>
+    <div id="projects"
+      class="h-[100vh] section bg-main-900 p-10 pt-30 lg:p-20 lg:pt-40 text-white shadow-[0_-20px_25px_-5px_rgba(0,0,0,0.3)]">
+      <p class="text-3xl lg:text-5xl">项目</p>
+      <div class="my-10 space-y-5">
+        <div
+          class="w-full md:w-3/4 lg:w-1/2 h-20 outline-main-700 outline-4 rounded-2xl flex items-center p-10 transition-all hover:shadow-xl">
+          <a class="menu-item text-2xl" href="https://nahco3-code.github.io/puzzle2d5/">2.5D Puzzle</a>
+        </div>
+        <div
+          class="w-full md:w-3/4 lg:w-1/2 h-20 outline-main-700 outline-4 rounded-2xl flex items-center p-10 transition-all hover:shadow-xl">
+          <a class="menu-item text-2xl" href="https://nahco3-code.github.io/continuation-writing-helper/">Continuation
+            Writing Helper</a>
+        </div>
+      </div>
+    </div>
+    <div id="footer" class="h-[30vh] section bg-main-950 p-10 lg:p-20 flex items-center text-white">
+      <!-- <p class="text-3xl lg:text-5xl font-title">Reservation</p> -->
+      <p class="text-xl text-gray-500 font-mono">Copyright(c) 2025 surfish</p>
+    </div>
+  </div>
+</body>
+
 </html>
