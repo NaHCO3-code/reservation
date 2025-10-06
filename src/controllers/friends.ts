@@ -1,6 +1,7 @@
 import avatar_img_alray from "../images/alray.jpg?url";
 import avatar_img_chenyue from "../images/chenyue.jpg?url";
 import avatar_img_laiq from "../images/laiq.jpg?url";
+import avatar_img_nomen from "../images/nomen.png?url";
 import avatar_img_surfish from "../images/surfish.png?url";
 import avatar_img_toby from "../images/toby.jpg?url";
 import { Singleton } from "../utils/singleton";
@@ -44,6 +45,12 @@ export class FriendsManager extends Singleton<FriendsManager>() {
       description: "",
       memory: "",
       avatar: avatar_img_chenyue,
+    },
+    {
+      name: "Nomen",
+      description: "",
+      memory: "",
+      avatar: avatar_img_nomen,
     },
   ];
 
